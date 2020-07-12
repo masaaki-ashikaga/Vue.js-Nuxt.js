@@ -5,47 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My first Vue app</title>
     <script src="https://unpkg.com/vue"></script>
+    <style>
+        table tr th{
+            font-size: 16pt;
+            color: white;
+            background-color: blue;
+            padding: 5px 15px;
+        }
+        table tr td{
+            font-size: 16pt;
+            color: gray;
+            border: 1px solid gray;
+        }
+        li{
+            font-size: 16pt;
+            color: gray;
+        }
+        .ok{
+            font-size: 24pt;
+            color: blue;
+            padding: 5px 10px;
+            border: 2px solid red;
+        }
+        .ng{
+            font-size: 20pt;
+            color: gray;
+        }
+    </style>
 </head>
 <body>
     <h1>Vue.js</h1>
     <div id="app">
-        {{ message }}
+        <p>※データテーブルを表示する</p>
+        <table>
+            <tr><th>ID</th><th>name</th><th>mail</th><th>tel</th></tr>
+            <tr v-for="(item, index) in items" v-if="index % 2 === 0">
+                <td>{{ index }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.mail }}</td>
+                <td>{{ item.tel }}</td>
+            </tr>
+            <tr v-else>
+                <td>***</td>
+                <td>***非公開***</td>
+                <td>***非公開***</td>
+                <td>***非公開***</td>
+            </tr>
+        </table>
     </div>
     <hr>
-    <button onclick="doAction();">
-        click
-    </button>
+    <button onclick="doAction();">click</button>
+    <!-- <input type="number" onChange="doChange(event);" value="20"> -->
 
     <script>
+        var classOj = {
+            red: true,
+            blue: false,
+        };
         var data = {
-            message: 'Hello Vue !',
-            items: ['One', 'Two', 'Three', 'Four', 'Five']
+            message: 'Hello Vue!',
+            flag: true,
+            classes: classOj,
+            styles: {
+                margin: '10px',
+                padding: '5px 20px',
+                fontSize: '20pt',
+                color: 'red',
+                backgroundColor: '#fee',
+                border: '3px solid blue',
+            },
+            items: [
+                {name:'Taro', mail:'tanka@taro', tel:'090-111-222'},
+                {name:'Hanako', mail:'yamada@hanako', tel:'080-111-222'},
+                {name:'Sato', mail:'ryosuke@sato', tel:'070-111-222'},
+                {name:'Jiro', mail:'jiro@ogawa', tel:'060-111-222'},
+                {name:'mami', mail:'mami@mumemo', tel:'060-111-222'},
+            ]
         };
 
         var app = new Vue({
             el: '#app',
             data: data,
-            render: (element) => {
-                var p = element('p',
-                {style: 'font-size: 20pt;'},
-                data.message);
-                var li = data.items.map(item => element('li', item));
-                var ol = element('ol', li);
-                var div = element('div', [p, ol]);
-                return div;
-            }
-        })
+        });
 
         function doAction(){
-            var newdata = [
-                'いち', 'に', 'さん', 'よん', 'ご'
-            ]
-            data.message = 'クリックしました！';
-            data.items[0] = 'ゼロ';
-            for(n in data.items){
-                data.items[n] = newdata[n];
-            }
+            data.flag = !data.flag;
         }
+
+        // function doChange(event){
+        //     data.style = 'font-size:' + event.target.value + 'pt; color: red;';
+        // }
     </script>
 </body>
 </html>
