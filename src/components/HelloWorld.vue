@@ -3,7 +3,7 @@
     <h1>{{title}}</h1>
     <p>{{message}}</p>
     <hr>
-    <p>Number: {{num}}</p>
+    <div><slot /></div>
   </div>
 </template>
 
@@ -12,18 +12,10 @@ export default{
   name: 'HelloWorld',
   props:{
     title: String,
-    num: {
-      type: Number,
-      default: 100,
-      validator: function(value){
-        return value == parseInt(value)
-        && value >= 0 && value <= 100;
-      }
-    },
   },
   data: function(){
     return {
-      message: 'バリデーションチェック',
+      message: 'this is message',
     };
   },
 }
@@ -47,5 +39,27 @@ p{
   margin: 0px;
   color: #666;
   font-size: 16pt;
+}
+pre{
+  font-size: 14pt;
+  line-height: 1.25;
+}
+div.out{
+  padding: 5px 0px;
+  background-color: #eee;
+  width: 300px;
+  height: 200px;
+}
+div.mid{
+  padding: 5px 0px;
+  background-color: #ddd;
+  width: 200px;
+  height: 175px;
+}
+div.in{
+  padding: 5px 0px;
+  background-color: #ccc;
+  width: 100px;
+  height: 150px;
 }
 </style>

@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <HelloWorld v-bind:title="message" v-bind:num="num" />
+    <HelloWorld title="slot">
+      <p class="inner">*** this is defalut text ***</p>
+    </HelloWorld>
   </div>
 </template>
 
